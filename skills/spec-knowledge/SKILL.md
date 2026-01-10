@@ -109,8 +109,8 @@ Rate each item Y (yes) or N (no).
 | # | Criterion | Required | Y/N |
 |---|-----------|----------|-----|
 | 5 | Each documented feature has defined behavior? | ✓ | |
-| 6 | Each interface has defined error responses? | ✓ | |
-| 7 | Interface contracts include inputs, outputs, errors? | | |
+| 6 | Error scenarios cover all documented features? | ✓ | |
+| 7 | Interaction points (internal and external) have explicit contracts? | | |
 | 8 | Implementer can build without clarifying questions? | ✓ | |
 
 **Consistency Layer**
@@ -160,13 +160,13 @@ Apply to both writing new specifications and improving existing ones. When impro
 | Phase | Focus | Output | Confirm |
 |-------|-------|--------|---------|
 | 1. Intent | Why and for whom | Purpose, Users, Impacts | Rubric #1-2 Y |
-| 2. Scope | What's included | Feature list, User journeys (name + goal) | List complete, no behavior yet |
-| 3. Behavior | How it works | Feature behaviors, Error responses | Rubric #5-6 Y |
-| 4. Refinement | Quality | Patterns, Contracts | Rubric #8-10 as needed |
+| 2. Scope | What's included | Feature list, User journeys (Context → Action → Outcome) | List complete |
+| 3. Behavior | How it works | Feature behaviors, Error scenarios | Rubric #5-6, #8 Y |
+| 4. Refinement | Quality | Patterns, Contracts | Rubric #7, #9-10 as needed |
 
 **Rules:**
 - Do not write Phase 3 details until Phase 2 is confirmed
-- Phase 2 output is names only (e.g., "Login feature", "User API")—no implementation details
+- Phase 2 defines user-facing flows; Phase 3 defines internal behaviors
 - Return to earlier phases when new understanding emerges
 - Specification is usable after Phase 3 (all Required Y)
 
@@ -187,19 +187,51 @@ Flag: missing layers, vague language, implementation details that should be open
 
 ### Splitting Content
 
-When detail exceeds main specification scope, extract to separate documents.
+**Default: Keep everything in SPEC.md.**
 
-| Type | Extract to | Example |
-|------|-----------|---------|
-| Data structures | `docs/schema.md` | Database schema, API types |
-| Visual design | `docs/design.md` or external | Figma link, color system |
-| Complex flows | `docs/flows/*.md` | Multi-step processes |
+Use this decision table to determine when to extract content:
 
-**Rules:**
-- Main spec links to detail: `See [Schema](docs/schema.md)`
-- Never duplicate content between main spec and detail documents
-- Detail documents follow same principles (constrain design, open implementation)
-- Each detail document has single responsibility
+| Decides | Expands | External | → Action |
+|---------|---------|----------|----------|
+| Y | - | - | Keep in SPEC.md |
+| N | N | - | Keep in SPEC.md |
+| N | Y | N | May extract (summary + link) |
+| N | Y | Y | Extract (link only) |
+
+**Conditions:**
+- **Decides**: Cannot understand what to build without reading this
+- **Expands**: Complete definition of a decision (all fields, all cases)
+- **External**: Maintained by different role/tool
+
+**Examples:**
+
+| Content | Decides | Expands | External | → Action |
+|---------|---------|---------|----------|----------|
+| Feature behavior | Y | - | - | Keep |
+| Decision table | Y | - | - | Keep |
+| Error handling rules | Y | - | - | Keep |
+| API endpoints (3-5) | N | N | - | Keep |
+| Full DB schema (50+ fields) | N | Y | N | May extract |
+| Complete test cases | N | Y | N | May extract |
+| Figma design | N | Y | Y | Extract |
+
+**When extracting:**
+- SPEC.md keeps the decision/summary
+- Link: `See [Schema](docs/schema.md) for field definitions`
+- Detail documents follow same principles
+
+| Type | Location |
+|------|----------|
+| Data structures | `docs/schema.md` |
+| Visual design | `docs/design.md` or external |
+| Test cases | `docs/tests.md` |
+
+**When updating specifications:**
+- First determine: decision or detail?
+- Decisions go in SPEC.md, details may go in referenced documents
+- If adding to external document, verify SPEC.md has the governing decision
+
+**Writing tip:** Use tables (like this decision table) to define boundaries and rules. Tables make conditions explicit and reduce ambiguity.
 
 ## Handling Uncertainty
 
