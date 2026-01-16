@@ -64,6 +64,7 @@ Establishes patterns for uniform implementation (all items enhance quality, none
 | Concept | Role | Example |
 |---------|------|---------|
 | Context | Shared understanding | "This is event-driven" |
+| Terminology | Same concept uses same name throughout | "Order" not "Purchase/Transaction/Request" |
 | Pattern | Recurring situation → approach | "State changes via events" |
 | Form | Expected structure | "Events have type, payload", "Primary: #FF0000", "Errors to stderr" |
 | Contract | Interaction agreement | "Handlers must be idempotent" |
@@ -116,8 +117,9 @@ Rate each item Y (yes) or N (no).
 **Consistency Layer**
 | # | Criterion | Required | Y/N |
 |---|-----------|----------|-----|
-| 9 | Recurring situations have named patterns? | | |
-| 10 | Two implementers would produce compatible results? | | |
+| 9 | Key terms defined and used consistently throughout? | | |
+| 10 | Recurring situations have named patterns? | | |
+| 11 | Two implementers would produce compatible results? | | |
 
 **Passing Criteria:**
 - All Required Y → Specification is usable. Stop unless improving quality.
@@ -148,6 +150,7 @@ Rate each item Y (yes) or N (no).
 | Undefined scenarios | Inconsistent edge case behavior | Incomplete state coverage | Enumerate all combinations |
 | Over-specification | Implementer constrained unnecessarily | Implementation details included | Keep only observable behaviors |
 | Inconsistent patterns | Similar problems solved differently | No shared conventions | Extract and reference patterns |
+| Inconsistent terminology | Same concept has multiple names | No shared vocabulary | Define key terms, use consistently |
 | Vague language | Ambiguous interpretation | "Handle appropriately" | Use specific values or criteria |
 | Hidden assumptions | Works only in specific context | Unstated prerequisites | Make all assumptions explicit |
 
@@ -162,7 +165,7 @@ Apply to both writing new specifications and improving existing ones. When impro
 | 1. Intent | Why and for whom | Purpose, Users, Impacts | Rubric #1-2 Y |
 | 2. Scope | What's included | Feature list, User journeys (Context → Action → Outcome) | List complete |
 | 3. Behavior | How it works | Feature behaviors, Error scenarios | Rubric #5-6, #8 Y |
-| 4. Refinement | Quality | Patterns, Contracts | Rubric #7, #9-10 as needed |
+| 4. Refinement | Quality | Patterns, Contracts, Terminology | Rubric #7, #9-11 as needed |
 
 **Rules:**
 - Do not write Phase 3 details until Phase 2 is confirmed
