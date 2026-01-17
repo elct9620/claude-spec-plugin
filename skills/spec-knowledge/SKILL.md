@@ -12,13 +12,24 @@ Expertise for working with software specifications.
 
 ## What Makes a Good Specification
 
-A specification is a complete record of design decisions. It tells implementers (human or machine) **what** to build so they can focus on **how**.
+A specification describes the **target state**—what the system looks like when complete.
+
+| Specification IS | Specification is NOT |
+|-----------------|---------------------|
+| Target state description | Implementation plan |
+| Design decisions (what) | Decision rationale (why) |
+| Declarative statements | Narrative explanations |
 
 **Core principle: Constrain design, open implementation.**
 
 - Specify all user-visible decisions
 - Leave internal implementation choices to implementers
 - If an implementer must guess a design decision, the specification is incomplete
+
+**Anti-patterns:**
+- `Note:` — If clarification needed, specification is unclear. Rewrite directly.
+- `(Future)`, `(v2)` — Describes target state, not phases. Remove or split into separate spec.
+- `(Optional)` — Either required for target state or belongs in Non-goals.
 
 ## Three Layers
 
@@ -153,6 +164,8 @@ Rate each item Y (yes) or N (no).
 | Inconsistent terminology | Same concept has multiple names | No shared vocabulary | Define key terms, use consistently |
 | Vague language | Ambiguous interpretation | "Handle appropriately" | Use specific values or criteria |
 | Hidden assumptions | Works only in specific context | Unstated prerequisites | Make all assumptions explicit |
+| Explanatory notes | "Note: because..." appears | Mixing rationale with spec | Rewrite as direct statement |
+| Phase markers | "(Future)", "(v2)" in spec | Mixing planning with spec | Remove; spec describes target state |
 
 ## Applying This Knowledge
 
