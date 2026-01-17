@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/elct9620/claude-spec-plugin/compare/spec-v0.3.0...spec-v0.4.0) (2026-01-17)
+
+
+### Features
+
+* **spec-knowledge:** clarify specification as target state description ([1afcefc](https://github.com/elct9620/claude-spec-plugin/commit/1afcefcb2954972a800eec6e3364868cdc359637))
+
 ## [0.3.0](https://github.com/elct9620/claude-spec-plugin/compare/spec-v0.2.0...spec-v0.3.0) (2026-01-16)
 
 
