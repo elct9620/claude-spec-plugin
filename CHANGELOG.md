@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/elct9620/claude-spec-plugin/compare/spec-v0.4.0...spec-v0.5.0) (2026-01-17)
+
+
+### Features
+
+* **spec-knowledge:** add boundary types classification ([0b576d2](https://github.com/elct9620/claude-spec-plugin/commit/0b576d25bd1550347498ee4dd8708bd1dd81b763))
+
 ## [0.4.0](https://github.com/elct9620/claude-spec-plugin/compare/spec-v0.3.0...spec-v0.4.0) (2026-01-17)
 
 
