@@ -61,12 +61,20 @@ Defines observable behaviors and boundaries:
 
 | Element | Role | Format | Core |
 |---------|------|--------|------|
-| System boundary | What's inside vs outside | - | |
+| System boundary | What's inside vs outside | See Boundary types | |
 | User journeys | Task flows achieving impacts | Context → Action → Outcome | |
 | Interfaces | Contracts between internal modules | - | |
 | Presenter | How system presents to users | UI: colors, layout / CLI: output format / API: response structure | |
 | Behaviors | Outcomes for each state × operation | State + Operation → Result | ✓ |
 | Error scenarios | How failures are handled | - | ✓ |
+
+**Boundary types:**
+
+| Type | Defines | Example |
+|------|---------|---------|
+| Responsibility | What system does / does not do | "Validates input; does not store history" |
+| Interaction | Input assumptions / Output guarantees | "Assumes authenticated user; Returns JSON only" |
+| Control | What system controls / depends on | "Controls order state; Depends on payment service" |
 
 ### Consistency Layer
 
