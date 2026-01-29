@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/elct9620/claude-spec-plugin/compare/spec-v0.5.0...spec-v0.5.1) (2026-01-29)
+
+
+### Bug Fixes
+
+* **spec-knowledge:** adjust frontmatter to fix slash command visibility ([89494ec](https://github.com/elct9620/claude-spec-plugin/commit/89494ecd58cf7911ace1d6c5144c5ffcbe6410e1))
+
 ## [0.5.0](https://github.com/elct9620/claude-spec-plugin/compare/spec-v0.4.0...spec-v0.5.0) (2026-01-17)
 
 
