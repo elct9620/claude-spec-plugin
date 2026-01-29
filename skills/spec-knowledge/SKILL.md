@@ -1,9 +1,6 @@
 ---
-name: spec-knowledge
 description: Maintains consistency when creating, modifying, reading, reviewing, or working with specifications. Use when user mentions SPEC.md, requirements, or any specification documents to ensure consistent handling. Provides specification knowledge—quality criteria, editing methods, and three-layer framework (Intent/Design/Consistency).
-license: Apache-2.0
-metadata:
-  author: Aotokitsuruya
+user-invocable: true
 ---
 
 # Specification
