@@ -13,12 +13,12 @@ The `<execute name="main">ARGUMENTS</execute>` is entry point for this command.
 
 To select skills for reviewing specifications, consider the following rubric:
 
-| Skill                    | When to use                                                                        |
-|--------------------------|------------------------------------------------------------------------------------|
-| `spec:spec-principles`   | Always — foundational knowledge for any specification work.                        |
-| `spec:spec-framework`    | Assessing whether specification layers are complete and well-structured.            |
-| `spec:spec-quality`      | Running the rubric, balance check, and identifying common problems.                |
-| `spec:spec-methodology`  | Applying review assessment method and suggesting improvements.                     |
+| Skill                    | When to use                                                                        | Core |
+|--------------------------|------------------------------------------------------------------------------------|------|
+| `spec:spec-principles`   | Always — foundational knowledge for any specification work.                        | ✓    |
+| `spec:spec-framework`    | Assessing whether specification layers are complete and well-structured.            |      |
+| `spec:spec-quality`      | Running the rubric, balance check, and identifying common problems.                | ✓    |
+| `spec:spec-methodology`  | Applying review assessment method and suggesting improvements.                     |      |
 
 ## Definition
 
@@ -34,13 +34,14 @@ To select skills for reviewing specifications, consider the following rubric:
 <function name="active-skills">
     <description>According to the review requirements, determine which skills are needed and activate them.</description>
     <parameter name="context" type="string" description="The specification content and structure overview." required="true"/>
-    <step>1. discover available skills from system-reminder</step>
-    <step>2. analyze the context with rubric of available skills</step>
-    <step>3. select the skills that are most relevant to the review</step>
+    <step>1. always activate core skills: spec:spec-principles, spec:spec-quality</step>
+    <step>2. discover available skills from system-reminder</step>
+    <step>3. analyze the context with rubric of available skills</step>
+    <step>4. select additional skills that are most relevant to the review</step>
     <loop for="skill in $selected-skills">
-        <step>4. use Skill($skill) to activate and load its knowledge</step>
+        <step>5. use Skill($skill) to activate and load its knowledge</step>
     </loop>
-    <return>list of activated skills with their knowledge loaded</return>
+    <return>list of activated skills with their knowledge loaded (core skills always included)</return>
 </function>
 
 <function name="assess-layers">
@@ -60,7 +61,8 @@ To select skills for reviewing specifications, consider the following rubric:
     <step>2. evaluate Design Layer criteria (#5-8): Behaviors, Error scenarios, Contracts, Implementability</step>
     <step>3. evaluate Consistency Layer criteria (#9-11): Terminology, Patterns, Compatibility</step>
     <step>4. determine passing status based on Required items</step>
-    <return>rubric scorecard with Y/N for each criterion and passing status</return>
+    <step>5. classify quality level per Quality Level Classification (Minimal/Usable/Complete/Over-specified)</step>
+    <return>rubric scorecard with Y/N for each criterion, passing status, and quality level</return>
 </function>
 
 <function name="check-balance">
@@ -93,8 +95,9 @@ To select skills for reviewing specifications, consider the following rubric:
     <step>1. compile rubric scores into a summary table</step>
     <step>2. prioritize problems by severity (Required criteria failures first)</step>
     <step>3. generate actionable improvement suggestions for each problem</step>
-    <step>4. determine overall specification status (usable, needs work, or complete)</step>
-    <return>comprehensive review report with scores, problems, and prioritized improvements</return>
+    <step>4. for each activated skill, verify its Completion Rubric (Before/During/After)</step>
+    <step>5. determine overall specification status (usable, needs work, or complete)</step>
+    <return>comprehensive review report with scores, skill completion verification, problems, and prioritized improvements</return>
 </function>
 
 <procedure name="main">

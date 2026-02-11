@@ -1,34 +1,60 @@
 ---
 name: spec-principles
-description: Core principles for software specifications—what a spec IS and IS NOT, the constrain-design-open-implementation principle, anti-patterns, and three-layer framework overview.
+description: Apply core specification principles: IS/IS-NOT distinction, constrain-design-open-implementation, and anti-pattern detection. Use when creating, reviewing, or evaluating any specification document.
 ---
 
 # Specification Principles
 
 Foundational knowledge for working with software specifications.
 
-## What Makes a Good Specification
+## Applicability Rubric
+
+| Condition | Pass | Fail |
+|-----------|------|------|
+| New specification needed | Feature/project has no SPEC.md | Spec already exists and is complete |
+| Specification quality concern | Existing spec is unclear or incomplete | Spec is well-structured and implementable |
+| Design direction guidance | Implementers need design direction | Implementation path is already clear |
+| Multi-person collaboration | Multiple people implement from spec | Solo development, no coordination needed |
+
+**Apply when**: Any condition passes
+
+## Core Principles
+
+### What Makes a Good Specification
 
 A specification describes the **target state**—what the system looks like when complete.
 
 | Specification IS | Specification is NOT |
 |-----------------|---------------------|
 | Target state description | Implementation plan |
-| Design decisions (what) | Decision rationale (why) |
-| Declarative statements | Narrative explanations |
+| Problem context (why it exists) | Decision rationale (why A over B) |
+| Design decisions (what to build) | Implementation choices (how to build) |
+| Declarative statements and structured formats | Prose narrative explanations |
 
-**Core principle: Constrain design, open implementation.**
+**Specify vs Leave Open:**
+
+| Question | Specify | Leave to Implementer |
+|----------|---------|----------------------|
+| User-visible? | Yes | No |
+| Affects module contracts? | Yes | No |
+| Could cause inconsistent interpretation? | Yes | No |
+| Internal algorithm or data structure? | Only if cross-implementer consistency required | Yes (default) |
+
+**Over-specified vs Properly Constrained:**
+
+| Aspect | Over-specified | Properly Constrained |
+|--------|---------------|----------------------|
+| Error handling | "Use try-catch with retry 3 times" | "Retry transient failures; report permanent failures to user" |
+| Data storage | "Store in PostgreSQL users table" | "Persist user profile across sessions" |
+| UI layout | "Use 16px grid with flexbox" | "Display items in a scannable list with clear hierarchy" |
+
+### Constrain Design, Open Implementation
 
 - Specify all user-visible decisions
-- Leave internal implementation choices to implementers
+- Leave internal implementation choices to implementers unless cross-implementer consistency requires shared conventions
 - If an implementer must guess a design decision, the specification is incomplete
 
-**Anti-patterns:**
-- `Note:` — If clarification needed, specification is unclear. Rewrite directly.
-- `(Future)`, `(v2)` — Describes target state, not phases. Remove or split into separate spec.
-- `(Optional)` — Either required for target state or belongs in Non-goals.
-
-## Three-Layer Overview
+### Three-Layer Overview
 
 Complete specifications address three layers:
 
@@ -37,3 +63,41 @@ Complete specifications address three layers:
 | Intent | Why this exists | What problem for whom? |
 | Design | What to build | What boundaries, interfaces, behaviors? |
 | Consistency | How to stay unified | What patterns for similar problems? |
+
+### Anti-Patterns
+
+| Anti-Pattern | Symptom | Why It Fails | Remedy |
+|-------------|---------|-------------|--------|
+| Explanatory notes | `Note:` appears in spec | If clarification is needed, the spec itself is unclear | Rewrite the statement directly |
+| Phase markers | `(Future)`, `(v2)` in spec | Spec describes target state, not phases | Remove or split into separate spec |
+| Optional markers | `(Optional)` in spec | Either required for target state or not | Move to Non-goals or make it required |
+| Over-specification | Algorithm details, framework choices | Constrains implementer without design benefit | Replace with observable behavior |
+| Prose narrative | "First we do X, then Y happens" | Mixes process with target state | Use declarative statements or structured formats (Context → Action → Outcome) |
+| Vague language | "Handle appropriately", "reasonable time" | Different implementers interpret differently | Use specific values or measurable criteria |
+
+## Completion Rubric
+
+### Before Writing/Reviewing
+
+| Criterion | Pass | Fail |
+|-----------|------|------|
+| Problem understanding | Can articulate the problem in one sentence | Problem is vague or undefined |
+| User identification | Know who will use this | Users not identified |
+| Scope definition | Clear what is included and excluded | Scope is open-ended |
+
+### During Writing/Reviewing
+
+| Criterion | Pass | Fail |
+|-----------|------|------|
+| Declarative statements | Spec uses "system does X" or structured formats | Spec uses prose narrative "first... then..." |
+| Design vs implementation | Only observable behaviors specified | Internal details included |
+| Anti-pattern free | No explanatory notes, phase markers, vague language | Anti-patterns present |
+| Specify vs Leave Open | Each decision tested against the decision table | Decisions not evaluated |
+
+### After Writing/Reviewing
+
+| Criterion | Pass | Fail |
+|-----------|------|------|
+| Implementer test | An implementer can build without clarifying questions | Ambiguity remains |
+| Compatibility test | Two implementers would produce compatible results | Interpretation varies |
+| Balance check | No over-specification or under-specification detected | Imbalance found |

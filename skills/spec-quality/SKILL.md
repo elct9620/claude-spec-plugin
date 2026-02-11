@@ -1,13 +1,26 @@
 ---
 name: spec-quality
-description: Quality assessment criteria for specifications—11-item rubric, balance check for over/under-specification, and common problems with fixes.
+description: Assess specification quality using 11-item rubric, balance check, and common problems table. Use when reviewing specs before implementation or verifying quality gates.
 ---
 
 # Specification Quality
 
 Criteria and tools for evaluating specification quality.
 
-## Specification Rubric
+## Applicability Rubric
+
+| Condition | Pass | Fail |
+|-----------|------|------|
+| Spec review requested | Need to assess spec quality | No review needed |
+| Pre-implementation check | Spec about to be implemented | Already implemented |
+| Quality gate | Spec must meet minimum bar before proceeding | Quality already verified |
+| Improvement cycle | Iterating on spec after feedback | No prior version to compare against |
+
+**Apply when**: Any condition passes
+
+## Core Principles
+
+### Specification Rubric
 
 Rate each item Y (yes) or N (no).
 
@@ -35,19 +48,28 @@ Rate each item Y (yes) or N (no).
 | 11 | Two implementers would produce compatible results? | | |
 
 **Passing Criteria:**
-- All Required Y → Specification is usable. Stop unless improving quality.
-- All items Y → Specification is complete. Stop.
 - Any Required N → Must address before implementation.
+- All Required Y → Specification meets **Minimal** level. Usable for small teams.
+- All Required Y + #3,4 Y → Specification meets **Usable** level. Stop unless improving quality.
+- All items Y → Specification meets **Complete** level. Stop.
 - Non-required N → Address only if relevant to project scope.
 
-## Balance Check
+### Quality Level Classification
+
+| Level | Criteria | Suitable For |
+|-------|----------|-------------|
+| Minimal | All Required items Y (#1,2,5,6,8) | Small team, rapid iteration |
+| Usable | All Required Y + #3,4 Y | Standard development |
+| Complete | All 11 items Y | Multi-team, external consumers |
+| Over-specified | All Y but Balance Check fails | Needs trimming of implementation details |
+
+### Balance Check
 
 | Question | Design Decision (specify) | Implementation Detail (open) |
 |----------|---------------------------|------------------------------|
 | User-visible? | Error messages, CLI output | Log format, variable names |
-| Affects modules? | Interface signatures | Internal functions |
-| Needs consistency? | Error handling pattern | Algorithm choice |
-| Could misalign? | Business rules | Performance optimization |
+| Affects module contracts? | Interface signatures | Internal functions |
+| Could cause inconsistent interpretation? | Error handling pattern, Business rules | Algorithm choice, Performance optimization |
 
 **Test:** "If implemented differently, would users notice or would modules conflict?"
 
@@ -55,7 +77,7 @@ Rate each item Y (yes) or N (no).
 
 **Warning signs of under-specification:** vague terms ("appropriate", "reasonable"), undefined behavior for reachable states
 
-## Common Problems
+### Common Problems
 
 | Problem | Symptom | Cause | Fix |
 |---------|---------|-------|-----|
@@ -68,3 +90,30 @@ Rate each item Y (yes) or N (no).
 | Hidden assumptions | Works only in specific context | Unstated prerequisites | Make all assumptions explicit |
 | Explanatory notes | "Note: because..." appears | Mixing rationale with spec | Rewrite as direct statement |
 | Phase markers | "(Future)", "(v2)" in spec | Mixing planning with spec | Remove; spec describes target state |
+
+## Completion Rubric
+
+### Before Quality Assessment
+
+| Criterion | Pass | Fail |
+|-----------|------|------|
+| Full spec read | Entire specification read and understood | Partial or skimmed reading |
+| Project context known | Understand team size, project stage, consumers | No context about project |
+| Target quality level selected | Chose Minimal/Usable/Complete based on context | No target level determined |
+
+### During Quality Assessment
+
+| Criterion | Pass | Fail |
+|-----------|------|------|
+| All 11 items evaluated | Every rubric item scored Y or N | Items skipped or unclear |
+| Evidence for each N | Each N has specific evidence from spec | N without justification |
+| Balance Check completed | Over/under-specification assessed | Balance not checked |
+| Common Problems scanned | All 9 problem types checked | Problems check incomplete |
+
+### After Quality Assessment
+
+| Criterion | Pass | Fail |
+|-----------|------|------|
+| Prioritized findings | Required N items listed before non-required | Unprioritized list |
+| Actionable recommendations | Each finding has a specific fix suggestion | Vague improvement advice |
+| Clear verdict | Quality level determined (Minimal/Usable/Complete/Over-specified) | No clear assessment |

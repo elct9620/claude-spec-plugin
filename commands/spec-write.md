@@ -13,12 +13,12 @@ The `<execute name="main">ARGUMENTS</execute>` is entry point for this command.
 
 To select skills for writing or improving specifications, consider the following rubric:
 
-| Skill                    | When to use                                                                        |
-|--------------------------|------------------------------------------------------------------------------------|
-| `spec:spec-principles`   | Always — foundational knowledge for any specification work.                        |
-| `spec:spec-framework`    | Structuring specification content into layers with proper elements.                |
-| `spec:spec-quality`      | Verifying each phase passes rubric criteria and checking balance.                  |
-| `spec:spec-methodology`  | Applying the progressive approach, splitting content, handling uncertainty.         |
+| Skill                    | When to use                                                                        | Core |
+|--------------------------|------------------------------------------------------------------------------------|------|
+| `spec:spec-principles`   | Always — foundational knowledge for any specification work.                        | ✓    |
+| `spec:spec-framework`    | Structuring specification content into layers with proper elements.                |      |
+| `spec:spec-quality`      | Verifying each phase passes rubric criteria and checking balance.                  |      |
+| `spec:spec-methodology`  | Applying the progressive approach, splitting content, handling uncertainty.         | ✓    |
 
 ## Definition
 
@@ -35,13 +35,14 @@ To select skills for writing or improving specifications, consider the following
 <function name="active-skills">
     <description>According to the task requirements, determine which skills are needed and activate them.</description>
     <parameter name="context" type="string" description="The gathered context about existing specifications." required="true"/>
-    <step>1. discover available skills from system-reminder</step>
-    <step>2. analyze the context with rubric of available skills</step>
-    <step>3. select the skills that are most relevant to the task</step>
+    <step>1. always activate core skills: spec:spec-principles, spec:spec-methodology</step>
+    <step>2. discover available skills from system-reminder</step>
+    <step>3. analyze the context with rubric of available skills</step>
+    <step>4. select additional skills that are most relevant to the task</step>
     <loop for="skill in $selected-skills">
-        <step>4. use Skill($skill) to activate and load its knowledge</step>
+        <step>5. use Skill($skill) to activate and load its knowledge</step>
     </loop>
-    <return>list of activated skills with their knowledge loaded</return>
+    <return>list of activated skills with their knowledge loaded (core skills always included)</return>
 </function>
 
 <function name="determine-phase">
@@ -87,6 +88,7 @@ To select skills for writing or improving specifications, consider the following
         <step>7. write Patterns, Contracts, and Terminology</step>
         <step>8. verify Rubric #7, #9-11 as needed</step>
     </condition>
+    <step>9. verify Completion Rubric of each activated skill for this phase</step>
     <return>completed phase with rubric verification result</return>
 </function>
 
@@ -96,8 +98,9 @@ To select skills for writing or improving specifications, consider the following
     <step>1. run the full Specification Rubric (11 items) against the written specification</step>
     <step>2. run the Balance Check for over-specification and under-specification</step>
     <step>3. check against Common Problems table</step>
-    <step>4. summarize overall specification quality with scores and recommendations</step>
-    <return>specification quality report with rubric scores, balance assessment, and recommendations</return>
+    <step>4. for each activated skill, verify its Completion Rubric (Before/During/After)</step>
+    <step>5. summarize overall specification quality with scores and recommendations</step>
+    <return>specification quality report with rubric scores, skill completion verification, balance assessment, and recommendations</return>
 </function>
 
 <procedure name="main">
