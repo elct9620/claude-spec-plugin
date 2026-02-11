@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.6.0](https://github.com/elct9620/claude-spec-plugin/compare/spec-v0.5.1...spec-v0.6.0) (2026-02-11)
+
+
+### Features
+
+* add structured knowledge architecture to all skills ([05cf3d3](https://github.com/elct9620/claude-spec-plugin/commit/05cf3d351b7d262b8fc6dee9e0d3ba531bbc7d9f))
+* split spec-knowledge into focused skills and add commands ([4f6673d](https://github.com/elct9620/claude-spec-plugin/commit/4f6673d9424f8bc0f3783a1049a662d0aa89487c))
+
+
+### Bug Fixes
+
+* resolve cross-skill conflicts and remove opaque rubric references ([c1fe85a](https://github.com/elct9620/claude-spec-plugin/commit/c1fe85ac7c0be1fbd5da14cae5d250bb63c95a6e))
+
 ## [0.5.1](https://github.com/elct9620/claude-spec-plugin/compare/spec-v0.5.0...spec-v0.5.1) (2026-01-29)
 
 
