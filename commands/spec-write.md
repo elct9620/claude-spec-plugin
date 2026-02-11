@@ -74,7 +74,7 @@ To select skills for writing or improving specifications, consider the following
     <parameter name="plan" type="string" description="The writing plan for this phase." required="true"/>
     <condition if="$phase == 'Intent'">
         <step>1. write Purpose, Users, and Impacts sections</step>
-        <step>2. verify Rubric #1-2 pass (Y)</step>
+        <step>2. verify Purpose and Users are stated</step>
     </condition>
     <condition if="$phase == 'Scope'">
         <step>3. write Feature list and User journeys (Context → Action → Outcome)</step>
@@ -82,11 +82,11 @@ To select skills for writing or improving specifications, consider the following
     </condition>
     <condition if="$phase == 'Behavior'">
         <step>5. write Feature behaviors and Error scenarios</step>
-        <step>6. verify Rubric #5-6, #8 pass (Y)</step>
+        <step>6. verify Behaviors and Errors are defined and spec is implementable</step>
     </condition>
     <condition if="$phase == 'Refinement'">
         <step>7. write Patterns, Contracts, and Terminology</step>
-        <step>8. verify Rubric #7, #9-11 as needed</step>
+        <step>8. verify Contracts, Terminology, and Patterns as needed</step>
     </condition>
     <step>9. verify Completion Rubric of each activated skill for this phase</step>
     <return>completed phase with rubric verification result</return>

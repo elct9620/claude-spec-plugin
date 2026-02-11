@@ -63,7 +63,7 @@ Rate each item Y (yes) or N (no).
 | Complete | All 11 items Y | Multi-team, external consumers |
 | Over-specified | All Y but Balance Check fails | Needs trimming of implementation details |
 
-### Balance Check
+### Balance Check (for review verification; see spec-principles Specify vs Leave Open for writing decisions)
 
 | Question | Design Decision (specify) | Implementation Detail (open) |
 |----------|---------------------------|------------------------------|
@@ -73,11 +73,11 @@ Rate each item Y (yes) or N (no).
 
 **Test:** "If implemented differently, would users notice or would modules conflict?"
 
-**Warning signs of over-specification:** internal implementation details, algorithm choices (unless user-visible)
+**Warning signs of over-specification:** internal implementation details, algorithm choices (unless user-visible or cross-implementer consistency required)
 
 **Warning signs of under-specification:** vague terms ("appropriate", "reasonable"), undefined behavior for reachable states
 
-### Common Problems
+### Common Problems (diagnosis; see spec-principles Anti-Patterns for prevention)
 
 | Problem | Symptom | Cause | Fix |
 |---------|---------|-------|-----|

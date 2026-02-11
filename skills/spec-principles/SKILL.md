@@ -31,7 +31,7 @@ A specification describes the **target state**—what the system looks like when
 | Design decisions (what to build) | Implementation choices (how to build) |
 | Declarative statements and structured formats | Prose narrative explanations |
 
-**Specify vs Leave Open:**
+**Specify vs Leave Open** (for writing decisions; see spec-quality Balance Check for review verification):
 
 | Question | Specify | Leave to Implementer |
 |----------|---------|----------------------|
@@ -64,7 +64,7 @@ Complete specifications address three layers:
 | Design | What to build | What boundaries, interfaces, behaviors? |
 | Consistency | How to stay unified | What patterns for similar problems? |
 
-### Anti-Patterns
+### Anti-Patterns (prevention; see spec-quality Common Problems for diagnostic use)
 
 | Anti-Pattern | Symptom | Why It Fails | Remedy |
 |-------------|---------|-------------|--------|
@@ -100,4 +100,4 @@ Complete specifications address three layers:
 |-----------|------|------|
 | Implementer test | An implementer can build without clarifying questions | Ambiguity remains |
 | Compatibility test | Two implementers would produce compatible results | Interpretation varies |
-| Balance check | No over-specification or under-specification detected | Imbalance found |
+| Balance check (spec-quality) | No over-specification or under-specification detected | Imbalance found |

@@ -26,24 +26,24 @@ Apply to both writing new specifications and improving existing ones. When impro
 
 | Phase | Focus | Output | Confirm |
 |-------|-------|--------|---------|
-| 1. Intent | Why and for whom | Purpose, Users, Impacts | Rubric #1-2 Y |
+| 1. Intent | Why and for whom | Purpose, Users, Impacts | Purpose + Users stated |
 | 2. Scope | What's included | Feature list, User journeys (Context → Action → Outcome) | List complete |
-| 3. Behavior | How it works | Feature behaviors, Error scenarios | Rubric #5-6, #8 Y |
-| 4. Refinement | Quality | Patterns, Contracts, Terminology | Rubric #7, #9-11 as needed |
+| 3. Behavior | How it works | Feature behaviors, Error scenarios | Behaviors + Errors defined, implementable |
+| 4. Refinement | Quality | Patterns, Contracts, Terminology | Contracts, Terms, Patterns as needed |
 
 **Rules:**
 - Do not write Phase 3 details until Phase 2 is confirmed
 - Phase 2 defines user-facing flows; Phase 3 defines feature behaviors and error scenarios
 - Return to earlier phases when new understanding emerges
-- Specification is usable after Phase 3 (all Required Y)
+- Specification reaches Minimal quality level after Phase 3 (all Required Y)
 
 ### Phase Transition Guide
 
 | Transition | Advance When | Stay/Return When |
 |-----------|-------------|-----------------|
-| Intent → Scope | Rubric #1-2 Y; stakeholders agree on purpose and users | Purpose unclear; users not validated |
+| Intent → Scope | Purpose and Users stated; stakeholders agree on both | Purpose unclear; users not validated |
 | Scope → Behavior | Feature list confirmed; user journeys cover all impacts | New features discovered; flows incomplete |
-| Behavior → Refinement | Rubric #5-6, #8 Y; all features have defined behavior | Undefined scenarios found; implementer has questions |
+| Behavior → Refinement | Behaviors and Errors defined, implementable; all features covered | Undefined scenarios found; implementer has questions |
 | Refinement → Done | Target quality level met; Balance Check passes | Consistency gaps; terminology conflicts |
 
 ### When Reviewing
@@ -134,7 +134,7 @@ To be decided:
   (depends on deployment target)
 ```
 
-Resolve all "To be decided" items within the target scope before the spec reaches implementation readiness (Rubric #8). Items outside the current scope may remain deferred with explicit owners.
+Resolve all "To be decided" items within the target scope before implementation readiness—an implementer should be able to build without clarifying questions. Items outside the current scope may remain deferred with explicit owners.
 
 #### Conflicting requirements
 
