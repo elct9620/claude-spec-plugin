@@ -65,6 +65,15 @@ Flag: missing layers, vague language, implementation details that should be open
 
 **Default: Keep everything in SPEC.md.**
 
+As features accumulate, SPEC.md may shift role:
+
+| SPEC.md Role | Signal |
+|---|---|
+| Full specification | Single feature or few tightly related features |
+| Table of contents | Multiple features, each with dedicated detail documents |
+
+In table-of-contents mode, SPEC.md retains decisions and summaries; feature detail documents hold the Behavior and Refinement content.
+
 Use this decision table to determine when to extract content:
 
 | Decides | Expands | External | → Action |
@@ -79,6 +88,11 @@ Use this decision table to determine when to extract content:
 - **Expands**: Complete definition of a decision (all fields, all cases)
 - **External**: Maintained by different role/tool
 
+**When "May extract" becomes "Should extract":**
+- Content length makes SPEC.md hard to scan (rough signal: section exceeds ~30 lines)
+- Same content is referenced from multiple features
+- SPEC.md is in table-of-contents mode
+
 **Examples:**
 
 | Content | Decides | Expands | External | → Action |
@@ -92,9 +106,9 @@ Use this decision table to determine when to extract content:
 | Figma design | N | Y | Y | Extract |
 
 **When extracting:**
-- SPEC.md keeps the decision/summary
+- **Extract = move + summarize, not delete.** SPEC.md keeps the governing decision and a one-line summary.
 - Link: `See [Schema](docs/schema.md) for field definitions`
-- Detail documents follow same principles
+- Detail documents follow the same decision table above
 
 | Type | Location |
 |------|----------|

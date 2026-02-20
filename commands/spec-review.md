@@ -28,7 +28,9 @@ To select skills for reviewing specifications, consider the following rubric:
     <step>1. locate the specification file (use provided path or search for SPEC.md)</step>
     <step>2. read the full content of the specification</step>
     <step>3. identify the structure and sections present</step>
-    <return>parsed specification content and structure overview</return>
+    <step>4. scan SPEC.md for document links matching pattern [text](docs/...) or relative .md paths</step>
+    <step>5. for each linked document: record the link and attempt to read the file if it exists</step>
+    <return>parsed specification content, structure overview, and linked documents map (path → content or "missing")</return>
 </function>
 
 <function name="active-skills">
@@ -75,6 +77,18 @@ To select skills for reviewing specifications, consider the following rubric:
     <return>balance assessment with specific findings</return>
 </function>
 
+<function name="check-structure">
+    <description>Verify structural integrity when SPEC.md links to extracted detail documents.</description>
+    <parameter name="spec" type="string" description="The parsed SPEC.md content." required="true"/>
+    <parameter name="linked-docs" type="map" description="Map of linked document paths to their content or 'missing'." required="true"/>
+    <step>1. identify all outbound links in SPEC.md (pattern: [text](path))</step>
+    <step>2. for each link: check whether the target file exists (flag broken links)</step>
+    <step>3. for each extracted section: verify SPEC.md retains a governing decision or summary sentence above the link (flag link-only extractions)</step>
+    <step>4. for each readable linked document: do a light consistency check — does the detail document contradict any decision stated in SPEC.md?</step>
+    <step>5. determine SPEC.md mode: full-specification or table-of-contents (based on link density and structure)</step>
+    <return>structure report: broken links, link-only extractions (missing governing decision), consistency conflicts, and detected SPEC.md mode</return>
+</function>
+
 <function name="identify-problems">
     <description>Check against the Common Problems table to find specific issues.</description>
     <parameter name="spec" type="string" description="The parsed specification content." required="true"/>
@@ -91,12 +105,14 @@ To select skills for reviewing specifications, consider the following rubric:
     <parameter name="layer-assessment" type="string" description="Three-layer assessment results." required="true"/>
     <parameter name="rubric-scores" type="string" description="Rubric scorecard results." required="true"/>
     <parameter name="balance-check" type="string" description="Balance assessment results." required="true"/>
+    <parameter name="structure-check" type="string" description="Structure integrity check results." required="true"/>
     <parameter name="problems" type="list" description="Identified problems list." required="true"/>
     <step>1. compile rubric scores into a summary table</step>
     <step>2. prioritize problems by severity (Required criteria failures first)</step>
     <step>3. generate actionable improvement suggestions for each problem</step>
-    <step>4. for each activated skill, verify its Completion Rubric (Before/During/After)</step>
-    <step>5. determine overall specification status (usable, needs work, or complete)</step>
+    <step>4. include structure findings: broken links and link-only extractions as high-priority issues</step>
+    <step>5. for each activated skill, verify its Completion Rubric (Before/During/After)</step>
+    <step>6. determine overall specification status (usable, needs work, or complete)</step>
     <return>comprehensive review report with scores, skill completion verification, problems, and prioritized improvements</return>
 </function>
 
@@ -108,9 +124,10 @@ To select skills for reviewing specifications, consider the following rubric:
     <step>4. <execute name="assess-layers" spec="$spec"/></step>
     <step>5. <execute name="apply-rubric" spec="$spec"/></step>
     <step>6. <execute name="check-balance" spec="$spec"/></step>
-    <step>7. <execute name="identify-problems" spec="$spec"/></step>
-    <step>8. <execute name="generate-report" layer-assessment="$layer-assessment" rubric-scores="$rubric-scores" balance-check="$balance-check" problems="$problems"/></step>
-    <step>9. ask user if they want to fix issues (can continue with /spec:spec-write)</step>
+    <step>7. <execute name="check-structure" spec="$spec" linked-docs="$linked-docs"/></step>
+    <step>8. <execute name="identify-problems" spec="$spec"/></step>
+    <step>9. <execute name="generate-report" layer-assessment="$layer-assessment" rubric-scores="$rubric-scores" balance-check="$balance-check" structure-check="$structure-check" problems="$problems"/></step>
+    <step>10. ask user if they want to fix issues (can continue with /spec:spec-write)</step>
     <return>specification review report</return>
 </procedure>
 
