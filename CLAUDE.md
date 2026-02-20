@@ -27,31 +27,58 @@ commands/
 
 ## Plugin Architecture
 
-- **Plugin manifest** (`.claude-plugin/plugin.json`): Defines plugin identity and metadata
-- **Skills** (`skills/*/SKILL.md`): Knowledge base — markdown files with YAML frontmatter that define agent skills
-- **Commands** (`commands/*.md`): Process orchestration — procedural workflows that reference skills via `Skill()` in `allowed-tools`
+- **Plugin manifest** (`.claude-plugin/plugin.json`): Defines plugin identity (`name`, `version`). The `name` field becomes the skill namespace — e.g., `"name": "spec"` means skills are referenced as `spec:spec-principles`.
+- **Skills** (`skills/*/SKILL.md`): Knowledge base — loaded via `Skill(spec:skill-name)` in commands.
+- **Commands** (`commands/*.md`): Process orchestration — activate skills listed in `allowed-tools` frontmatter.
 
 ### Skill Format
 
-Skills use YAML frontmatter for metadata followed by markdown content:
+Skills use YAML frontmatter (only `name` and `description` are required) followed by markdown content:
+
 ```yaml
 ---
 name: skill-name
 description: Brief description for skill matching
-license: Apache-2.0
-metadata:
-  author: Author Name
 ---
 # Skill content in markdown
 ```
+
+Skill content typically includes: **Applicability Rubric** (when to apply), **Core Principles** (the knowledge), and **Completion Rubric** (before/during/after checks).
+
+### Command Format
+
+Commands use an XML-based DSL to define reusable functions and a main procedure:
+
+```xml
+<function name="step-name">
+    <description>What this function does.</description>
+    <parameter name="param" type="string" required="true"/>
+    <step>1. do something</step>
+    <condition if="some condition">
+        <step>2. conditional step</step>
+    </condition>
+    <loop for="item in $list">
+        <step>3. repeated step</step>
+    </loop>
+    <return>what this function returns</return>
+</function>
+
+<procedure name="main">
+    <step>1. <execute name="step-name" param="$value"/></step>
+    <return>final output</return>
+</procedure>
+```
+
+The `<execute name="main">$ARGUMENTS</execute>` at the bottom is the entry point.
 
 ## Development Guidelines
 
 ### Version Bumping
 
-- Use `fix:` commits for patch version bumps
-- Use `feat:` commits for minor version bumps
-- Update version in `.claude-plugin/plugin.json`
+Versioning is automated via **release-please** (`.github/workflows/release-please.yml`). Merging to `main` with conventional commits triggers a release PR that auto-updates `.claude-plugin/plugin.json`.
+
+- `fix:` commits → patch bump
+- `feat:` commits → minor bump
 
 ### Skills Directory
 
